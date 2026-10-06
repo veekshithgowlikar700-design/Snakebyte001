@@ -20,8 +20,11 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Check Android SDK
+        run: |
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
+          ls -la "$ANDROID_HOME"
 
       - name: Make Gradle executable
         run: chmod +x gradlew
@@ -29,7 +32,7 @@ jobs:
       - name: Build SnakeByte APK
         run: ./gradlew assembleDebug --stacktrace
 
-      - name: Upload APK
+      - name: Upload SnakeByte APK
         uses: actions/upload-artifact@v4
         with:
           name: SnakeByte-debug-apk
